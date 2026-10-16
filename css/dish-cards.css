@@ -1,0 +1,145 @@
+/* ==========================================================
+   Baruch Caterers - dish cards (image + name + add)
+   Loaded AFTER style.css, so these rules win where they overlap.
+   Nothing here changes how selection works - it only changes looks.
+   ========================================================== */
+
+/* 1. The list becomes a responsive grid of cards.
+      auto-fill = "fit as many 150px+ columns as the width allows",
+      so phones get 2 columns and desktops get 4-5 with no media query. */
+dialog .category-menu-list.dish-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 4px 0 8px;
+}
+
+/* 2. Each <li> is one card. */
+dialog .category-menu-list.dish-cards > li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* old list rule centred items; cards need them full width */
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line, #c9e7fa);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(17, 24, 94, .06);
+  color: var(--ink, #11185e);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+/* Undo the old "slide right" hover from the text list. */
+dialog .category-menu-list.dish-cards > li:hover {
+  padding-left: 0;
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px rgba(17, 24, 94, .14);
+}
+
+/* 3. The photo: fixed 4:3 box so the grid never jumps while images load. */
+.dish-card-img {
+  order: 1;
+  width: 100%;
+  height: auto; /* the width/height attributes would otherwise force a tall box */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eef6fd;
+}
+
+/* Fallback photo (the category image) is slightly softened so guests can
+   tell it is a placeholder, until the real dish photo is added. */
+.dish-card-img.is-fallback {
+  filter: saturate(.8) brightness(.97);
+}
+
+/* 4. The dish name. This is still the LAST <span> in the <li>,
+      which is exactly what script.js reads to know the dish name. */
+dialog .category-menu-list.dish-cards > li > span:last-child {
+  order: 2;
+  padding: 10px 12px 6px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  min-height: 3.1em;
+}
+
+/* 5. The small "01, 02 ..." number becomes a badge on the photo. */
+dialog .category-menu-list.dish-cards > li > .category-menu-item-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(17, 24, 94, .78);
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* 6. "+ Add" strip along the bottom (pure CSS, no extra HTML). */
+dialog .category-menu-list.dish-cards > li::before {
+  content: "+ Add to menu";
+  order: 3;
+  margin: 0 12px 12px;
+  padding: 7px 0;
+  border: 1px solid var(--primary, #2b72d2);
+  border-radius: 999px;
+  color: var(--primary, #2b72d2);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  transition: background .18s ease, color .18s ease;
+}
+
+dialog .category-menu-list.dish-cards > li:hover::before {
+  background: rgba(43, 114, 210, .08);
+}
+
+/* 7. The tick circle (from the old CSS) moves to the top-right corner. */
+dialog .category-menu-list.dish-cards > li::after {
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  transform: none;
+  box-shadow: 0 2px 6px rgba(17, 24, 94, .2);
+}
+
+/* 8. Selected card. */
+dialog .category-menu-list.dish-cards > li.is-menu-selected {
+  padding-right: 0;
+  border-color: var(--primary, #2b72d2);
+  background: #f3f8ff;
+  box-shadow: 0 0 0 2px var(--primary, #2b72d2), 0 10px 22px rgba(43, 114, 210, .22);
+}
+
+dialog .category-menu-list.dish-cards > li.is-menu-selected::before {
+  content: "\2713  Added";
+  background: var(--primary, #2b72d2);
+  color: #fff;
+}
+
+/* 9. Keyboard users: clear focus ring. */
+dialog .category-menu-list.dish-cards > li:focus-visible {
+  outline: 3px solid var(--secondary, #6fd3f6);
+  outline-offset: 2px;
+}
+
+/* 10. Small phones: slightly tighter cards. */
+@media (max-width: 520px) {
+  dialog .category-menu-list.dish-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  dialog .category-menu-list.dish-cards > li > span:last-child {
+    padding: 8px 10px 4px;
+    font-size: 13px;
+  }
+  dialog .category-menu-list.dish-cards > li::before {
+    margin: 0 10px 10px;
+    font-size: 11px;
+  }
+}

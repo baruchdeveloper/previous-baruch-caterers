@@ -1,0 +1,40 @@
+{
+  "name": "Baruch Caterers",
+  "short_name": "Baruch",
+  "description": "Premium catering services for weddings, parties, corporate events, church functions, and family celebrations in Chennai.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#11185E",
+  "theme_color": "#2B72D2",
+  "categories": ["food", "business", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/app-icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Menu",
+      "short_name": "Menu",
+      "description": "Explore Baruch Caterers packages and menu options.",
+      "url": "menu.html"
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Call or WhatsApp Baruch Caterers.",
+      "url": "contact.html"
+    }
+  ]
+}
